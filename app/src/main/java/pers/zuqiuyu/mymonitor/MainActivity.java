@@ -86,6 +86,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		System.out.println("mainactivity");
 		
 		mBluetoothUtils = new BluetoothUtils(this,mMainHandler);
 		mBluetoothUtils.Init();
