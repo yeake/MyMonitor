@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/nephritis"
+    android:paddingTop="15dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp">
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Contact_Us"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"/>
+    
+    
+    
+    <View 
+        android:layout_width="12sp"
+        android:layout_height="12sp"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/setting_item_selector"
+        android:clickable="true"
+        android:id="@+id/rlTel"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        
+        <ImageView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:src="@drawable/phone"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ivPhone"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textSize="24sp"
+            android:text="@string/contactTel"
+            android:layout_toRightOf="@id/ivPhone"
+            android:textColor="@color/white"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:textSize="24sp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"/>
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="wrap_content"
+        android:layout_height="12sp"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/setting_item_selector"
+        android:id="@+id/rlEmail"
+        android:clickable="true"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        
+        <ImageView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:src="@drawable/email"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ivEmail"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ContactEmail"
+            android:paddingLeft="10dp"
+            android:textSize="24sp"
+            android:layout_toRightOf="@id/ivEmail"
+            android:textColor="@color/white"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:textSize="24sp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"/>
+   
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="wrap_content"
+        android:layout_height="12sp"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/setting_item_selector"
+        android:id="@+id/rlWebsite"
+        android:clickable="true"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        
+        <ImageView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:src="@drawable/internet"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ivInternet"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contactWebsite"
+            android:paddingLeft="10dp"
+            android:textSize="24sp"
+            android:layout_toRightOf="@id/ivInternet"
+            android:textColor="@color/white"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:textSize="24sp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"/>
+   
+        
+    </RelativeLayout>
+    
+
+</LinearLayout>

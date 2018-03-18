@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:padding="10dp"
+        android:background="@drawable/data_background_shape">
+        
+        <SurfaceView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sfvECGWave"
+            android:layerType="hardware"
+            android:background="@color/nephritis"/>
+        
+    </LinearLayout>
+    
+    <View 
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layerType="hardware"
+        android:orientation="horizontal">
+        
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/data_background_shape"
+            >
+            <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/tvResp"
+	            android:text="@string/tvRespInvalid"
+	            android:textColor="@color/white"
+	            android:textSize="40sp"/>
+            <TextView 
+                android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/tvResp"
+	            android:layout_alignBottom="@id/tvResp"
+	            android:textSize="12sp"
+	            android:textColor="@color/white"
+	            android:text="@string/tvRespUnit"/>
+        </RelativeLayout>
+        
+        <View 
+            android:layout_width="5dp"
+            android:layout_height="match_parent"/>
+        
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/data_background_shape"
+            >
+            <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/tvHR"
+	            android:text="@string/tvHRInvalid"
+	            android:textColor="@color/white"
+	            android:textSize="40sp"/>
+            <TextView 
+                android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/tvHR"
+	            android:layout_alignBottom="@id/tvHR"
+	            android:textSize="12sp"
+	            android:textColor="@color/white"
+	            android:text="@string/tvHRUnit"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    
+    
+    
+    
+    
+
+</LinearLayout>

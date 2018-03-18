@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">贝瑞监护仪</string>
+    <string name="exit_tip">再按一次退出程序</string>
+    <string name="unfinishedfunc">该功能正在建设中，敬请期待。</string>
+
+    <string name="strnull"></string>
+    <string name="unknown_device">unknown device</string>
+    <string name="paired">Paired</string>
+    <string name="berry_bluetooth_name">BerryMed</string>
+    <string name="research">重新搜索</string>
+    <string name="wait_for_connect">请稍等。。。</string>
+    <string name="connect_successfully">已经连接到 </string>
+    
+    <!-- SpO2 -->
+    <string name="tvSpO2Unit">%</string>
+    <string name="tvPRUnit">bmp</string>
+    <string name="tvSpO2Invalid">--</string>
+    <string name="tvPRInvalid">--</string>
+    
+    <!-- ECG -->
+    <string name="tvRespInvalid">--</string>
+    <string name="tvRespUnit">bmp</string>
+    <string name="tvHRInvalid">--</string>
+    <string name="tvHRUnit">bmp</string>
+    
+    <!-- TEMP -->
+    
+    <string name="tvTempInvalid">--.-</string>
+    
+    <!-- NIBP -->
+    <string name="tvNIBPInvalid">---</string>
+    
+    <string name="tvCopyright">©2006-2014 Berry-med.com, All rights reserved.</string>
+    
+    <!-- configure -->
+    <string name="Settings">设置</string>
+    <string name="About">关于</string>
+    <string name="Contact_Us">联系我们</string>
+    
+    <!-- Contact -->
+    <string name="contactTel"    >+86-021-58531958</string>
+    <string name="ContactEmail"  >sales@berry-med.com</string>
+    <string name="contactWebsite">www.berry-med.com</string>
+    
+    <!-- About -->
+    <string name="AboutCompany">上海贝瑞电子科技有限公司</string>
+    <string name="AboutApp">软件版本：V</string>
+    
+    <!-- Tel alert dialog-->
+    <string name="sure">拨打</string>
+    <string name="later">稍后</string>
+    <string name="areyousure">确定现在拨打？  工作时间:9:00—17:30(北京时间)</string>
+    
+</resources>

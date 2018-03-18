@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layerType="hardware"
+        android:orientation="horizontal">
+        
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/data_background_shape"
+            >
+            <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/tvSpO2"
+	            android:text="@string/tvSpO2Invalid"
+	            android:textColor="@color/white"
+	            android:textSize="40sp"/>
+            <TextView 
+                android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/tvSpO2"
+	            android:layout_alignBottom="@id/tvSpO2"
+	            android:textSize="12sp"
+	            android:textColor="@color/white"
+	            android:text="@string/tvSpO2Unit"/>
+        </RelativeLayout>
+        
+        <View 
+            android:layout_width="5dp"
+            android:layout_height="match_parent"/>
+        
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/data_background_shape"
+            >
+            <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/tvPR"
+	            android:text="@string/tvPRInvalid"
+	            android:textColor="@color/white"
+	            android:textSize="40sp"/>
+            <TextView 
+                android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/tvPR"
+	            android:layout_alignBottom="@id/tvPR"
+	            android:textSize="12sp"
+	            android:textColor="@color/white"
+	            android:text="@string/tvPRUnit"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    
+    <View 
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:padding="10dp"
+        android:background="@drawable/data_background_shape">
+        
+        <SurfaceView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sfvSpO2Wave"
+             android:layerType="hardware"
+            android:background="@color/nephritis"/>
+        
+    </LinearLayout>
+    
+
+</LinearLayout>

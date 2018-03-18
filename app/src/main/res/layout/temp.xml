@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/nephritis"
+    android:gravity="center_horizontal"
+    android:paddingBottom="10dp">
+    
+    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/thermometer"/>
+    <View 
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:background="@color/nephritis"/>
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    >
+        <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/tvTempInvalid"
+	        android:id="@+id/tvTemp"
+	        android:textColor="@color/white"
+	        android:textSize="36sp"/>
+	    <View 
+		        android:layout_width="5dp"
+		        android:layout_height="match_parent"
+		        android:background="@color/nephritis"/>
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="°C"
+	        android:textColor="@color/white"
+	        android:textSize="18sp"/>
+    </LinearLayout>
+</LinearLayout>
