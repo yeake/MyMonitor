@@ -1,9 +1,9 @@
 package pers.zuqiuyu.mymonitor.utils;
 
 
+import android.os.Environment;
 
-
-
+import java.util.ArrayList;
 
 public class CONST
 {
@@ -35,5 +35,24 @@ public class CONST
 	
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST       = "toast";
+
+
+	public static final String FilePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+										"/Android/data/com.zuqiuyu.mymonitor/data/";//数据存储路径
+
+	public static String TIME = "00000000000000";
+	//public static String filePathRecord = FilePath+time;//Record file
+	//public static String filePathECG = filePathRecord+"ECG";//ECG file
+
+	public static ArrayList<String> listRecord =new ArrayList<String>();
+	public static ArrayList<String> listECG =new ArrayList<String>();
+
+	public static ArrayList<String> listRESP =new ArrayList<String>();
+	public static ArrayList<String> listHR =new ArrayList<String>();
+	public static ArrayList<String> listSPO2 =new ArrayList<String>();
+	public static ArrayList<String> listPR =new ArrayList<String>();
+	public static ArrayList<String> listSBP =new ArrayList<String>();
+	public static ArrayList<String> listDBP =new ArrayList<String>();
+	public static ArrayList<String> listTEMP =new ArrayList<String>();
 	
 }

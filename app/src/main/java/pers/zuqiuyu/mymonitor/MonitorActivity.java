@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -25,15 +27,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
 import pers.zuqiuyu.mymonitor.bluetooth.BluetoothChatService;
 import pers.zuqiuyu.mymonitor.bluetooth.BluetoothUtils;
 import pers.zuqiuyu.mymonitor.utils.CONST;
+import pers.zuqiuyu.mymonitor.utils.GetCurrentTime;
+import pers.zuqiuyu.mymonitor.utils.IOtxt;
 import pers.zuqiuyu.mymonitor.utils.utils;
 import pers.zuqiuyu.mymonitor.wave.Wave;
 import pers.zuqiuyu.mymonitor.wave.WaveParse;
 
 
-public class MainActivity extends Activity implements OnClickListener,OnItemClickListener{
+public class MonitorActivity extends Activity implements OnClickListener,OnItemClickListener{
 	
 	//UI
 	public static View             vwDivider0;
@@ -54,6 +60,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 	public static ImageButton      ibConfig;
 	public static ListView         lvBtDevices;
 	public static Button           btnResearch;
+	public static Button           btnSave;
 	public static ProgressBar      pbSearch;
 	public static ImageView        ivNIBP;
 	public static TextView         tvHighPressure;
@@ -78,22 +85,24 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 	
 	public static SurfaceView sfvECGWave;
 	public static Wave mECGWaveDraw;
-	
-	
+	//进度条
+	ProgressDialog progressDialog;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.main);
-		System.out.println("mainactivity");
+		//Log.e("filePathECG",CONST.filePathECG);
+		//Log.e("filePathRecord",CONST.filePathRecord);
+		setContentView(R.layout.activity_monitor);
+		IOtxt.makeDirectory(CONST.FilePath);//创建数据文件夹
 		
 		mBluetoothUtils = new BluetoothUtils(this,mMainHandler);
 		mBluetoothUtils.Init();
 		mBluetoothUtils.RegisterRecevier();
 		
 		UI_WidgetInit();
-		
 		
 		WaveParse mSpO2WaveParas = new WaveParse();
 		mSpO2WaveParas.bufferCounter = 1;
@@ -105,15 +114,92 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 		mECGWaveParas.bufferCounter = 5;
 		mECGWaveParas.xStep = 2;
 		mECGWaveDraw = new Wave(sfvECGWave,mECGWaveParas);
+
+
 		
 	}
-	
-	
-	
+
+
+	private OnClickListener mSaveBtnOncliClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			progressDialog = ProgressDialog.show(MonitorActivity.this, "提示", "拼命加载中，请稍后……");
+			progressDialog.show();
+			new TaskThread().start();
+
+		}
+	};
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case 0: {
+					progressDialog.dismiss();
+					Log.e("tag", "-->回到主线程刷新ui任务");
+					Toast.makeText(MonitorActivity.this,"已保存，进入参数界面",Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(MonitorActivity.this,RecordActivity.class);
+					intent.putExtra("time",CONST.TIME);
+					startActivity(intent);
+				}
+				break;
+				default:
+					break;
+			}
+		}
+	};
+	class TaskThread extends Thread {
+		public void run() {
+			Log.e("tag", "开始执行费时任务");
+			try {
+				String TIME = GetCurrentTime.getTime();
+				CONST.TIME = TIME;
+				Thread.sleep(500);
+				String filePathRecord = CONST.FilePath+TIME;//Record file
+
+				String filePathECG = CONST.FilePath+TIME+"ECG";//Record file
+				Log.e("ecgsize",CONST.listECG.size()+"");
+				IOtxt.writeECG(filePathECG,CONST.listECG);//write record
+				CONST.listECG.clear();
+
+				CONST.listRecord.add(IOtxt.getMedian(CONST.listRESP));
+				CONST.listRecord.add(IOtxt.getMedian(CONST.listHR));
+				CONST.listRecord.add(IOtxt.getMedian(CONST.listSPO2));
+				CONST.listRecord.add(IOtxt.getMedian(CONST.listPR));
+				if (CONST.listSBP.isEmpty() || CONST.listDBP.isEmpty()){
+					CONST.listRecord.add("0");
+					CONST.listRecord.add("0");
+				}
+				else{
+					CONST.listRecord.add(IOtxt.getMedian(CONST.listSBP));
+					CONST.listRecord.add(IOtxt.getMedian(CONST.listDBP));
+				}
+				CONST.listRecord.add(IOtxt.getMedian(CONST.listTEMP));
+
+				IOtxt.writeRecord(filePathRecord,CONST.listRecord);//write record
+				//clear list
+				CONST.listRESP.clear();
+				CONST.listHR.clear();
+				CONST.listSPO2.clear();
+				CONST.listPR.clear();
+				CONST.listSBP.clear();
+				CONST.listDBP.clear();
+				CONST.listTEMP.clear();
+				CONST.listRecord.clear();
+
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			Log.e("tag","执行完毕");
+			handler.sendEmptyMessage(0);
+		}
+
+	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+
 		
 		
 	}
@@ -131,7 +217,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 			}
 			else
 			{
-				utils.ExitWithToat(MainActivity.this);
+				utils.ExitWithToat(MonitorActivity.this);
 			}
 		}
 		return false;
@@ -140,7 +226,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		MainActivity.mBluetoothUtils.UnRegisterRecevier();
+		MonitorActivity.mBluetoothUtils.UnRegisterRecevier();
 		UIActions.isMainScreenShow = true;
 		super.onDestroy();
 	}
@@ -167,6 +253,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 	    ibConfig    = (ImageButton)    findViewById(R.id.ibConfig);
 	    lvBtDevices = (ListView)       findViewById(R.id.lvBtDevices);
 	    btnResearch = (Button)         findViewById(R.id.btnResearch);
+	    btnSave     = (Button)         findViewById(R.id.btnSave);
 	    pbSearch    = (ProgressBar)    findViewById(R.id.pbSearch);
 	    tvSpO2      = (TextView)       findViewById(R.id.tvSpO2);
 	    tvPR        = (TextView)       findViewById(R.id.tvPR);
@@ -180,7 +267,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 	    tVLowPressure  = (TextView)    findViewById(R.id.tvLowPressure);
 
 	    
-	    mContext    =  MainActivity.this;
+	    mContext    =  MonitorActivity.this;
 	    
 	    rlSpO2.setOnClickListener(this);
 	    rlECG.setOnClickListener(this);
@@ -191,6 +278,8 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 	    ibConfig.setOnClickListener(this);
 	    btnResearch.setOnClickListener(this);
 	    ivNIBP.setOnClickListener(this);
+
+	    btnSave.setOnClickListener(mSaveBtnOncliClickListener);
 	    
 	    mBTDevicesAdapter =  new UIActions().new BTDevicesAdapter(this);
 	    lvBtDevices.setAdapter(mBTDevicesAdapter);
@@ -202,7 +291,6 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 		// TODO Auto-generated method stub
 		UIActions.OnClick(view,mBluetoothUtils);
 	}
-	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		// TODO Auto-generated method stub
@@ -211,7 +299,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 		BluetoothDevice device = (BluetoothDevice) mBTDevicesAdapter.getItem(position);
 		if(device != null)
 		{
-			mBluetoothUtils.BluetoothServiceInit(MainActivity.this, mMainHandler, device);
+			mBluetoothUtils.BluetoothServiceInit(MonitorActivity.this, mMainHandler, device);
 		}
 	}
 	
@@ -257,7 +345,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 						switch(msg.arg1)
 						{
 							case BluetoothChatService.STATE_CONNECTING:
-								mBtConnectProgressDialog = ProgressDialog.show(MainActivity.this, null, getResources().getString(R.string.wait_for_connect));
+								mBtConnectProgressDialog = ProgressDialog.show(MonitorActivity.this, null, getResources().getString(R.string.wait_for_connect));
 								UIActions.ShowMainScreen();
 								break;
 							case BluetoothChatService.STATE_CONNECTED:
@@ -275,7 +363,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 					
 				case CONST.MESSAGE_BLUETOOTH_DEVICE_NAME:
 					String strName = msg.getData().getString(CONST.DEVICE_NAME);
-					Toast.makeText(MainActivity.this, getResources().getString(R.string.connect_successfully)+" "+strName, Toast.LENGTH_SHORT).show();
+					Toast.makeText(MonitorActivity.this, getResources().getString(R.string.connect_successfully)+" "+strName, Toast.LENGTH_SHORT).show();
 					break;
 				case CONST.MESSAGE_BLUETOOTH_CONNECT_FAIL:
 					if(mBtConnectProgressDialog != null)
@@ -286,7 +374,7 @@ public class MainActivity extends Activity implements OnClickListener,OnItemClic
 					
 				case CONST.MESSAGE_BLUETOOTH_TOAST:
 					String strToast = msg.getData().getString(CONST.TOAST);
-					Toast.makeText(MainActivity.this, strToast, Toast.LENGTH_SHORT).show();
+					Toast.makeText(MonitorActivity.this, strToast, Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;

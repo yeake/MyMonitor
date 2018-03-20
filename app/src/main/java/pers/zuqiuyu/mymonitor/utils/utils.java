@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
-import pers.zuqiuyu.mymonitor.MainActivity;
+import pers.zuqiuyu.mymonitor.MonitorActivity;
 import pers.zuqiuyu.mymonitor.R;
 
 
@@ -20,7 +20,7 @@ public class utils
 		}
     	else
     	{
-    		MainActivity.mBluetoothUtils.StopBluetoothChatService();
+    		MonitorActivity.mBluetoothUtils.StopBluetoothChatService();
     		((Activity) context).finish();
 		}
     }

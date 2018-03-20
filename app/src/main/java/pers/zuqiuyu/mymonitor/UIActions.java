@@ -14,10 +14,8 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pers.zuqiuyu.mymonitor.bluetooth.BluetoothUtils;
 import pers.zuqiuyu.mymonitor.utils.CONST;
@@ -65,20 +63,21 @@ public class UIActions
 				        break;
 			case R.id.ibNIBP:
 				        
-				        MainActivity.mBluetoothUtils.SendCMD(CONST.START_NIBP);
+				        MonitorActivity.mBluetoothUtils.SendCMD(CONST.START_NIBP);
 				        break;
 				        
 			default:
 				        break;
 		}
 	}
-	
+
 	private static void RecordShow() {
 		// TODO Auto-generated method stub
 		if(!isMainScreenShow)
 		{
-			 Toast.makeText(MainActivity.mContext, MainActivity.mContext.getResources().getString(R.string.unfinishedfunc), Toast.LENGTH_LONG).show();
-		     return;
+			//Toast.makeText(MonitorActivity.mContext, MonitorActivity.mContext.getResources().getString(R.string.unfinishedfunc), Toast.LENGTH_LONG).show();
+			Intent intent = new Intent(MonitorActivity.mContext,RecordListActivity.class);
+			MonitorActivity.mContext.startActivity(intent);
 		}
 	}
 
@@ -86,8 +85,8 @@ public class UIActions
 		// TODO Auto-generated method stub
 		if(!isMainScreenShow)
 		{
-			Intent intent = new Intent(MainActivity.mContext,SettingsActivity.class);  
-            MainActivity.mContext.startActivity(intent);  
+			Intent intent = new Intent(MonitorActivity.mContext,SettingsActivity.class);
+            MonitorActivity.mContext.startActivity(intent);
 		}
 	}
 
@@ -98,7 +97,7 @@ public class UIActions
 		{
 			
 			
-			Animation animation = AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.slide_left);
+			Animation animation = AnimationUtils.loadAnimation(MonitorActivity.mContext, R.anim.slide_left);
 			animation.setAnimationListener(new AnimationListener() {
 				
 				@Override
@@ -121,11 +120,11 @@ public class UIActions
 			});
 			
 			
-			MainActivity.llBTSelect.startAnimation(animation);
-			MainActivity.llBTSelect.setVisibility(View.VISIBLE);
-			MainActivity.llCfgDedail.setVisibility(View.GONE);
-			MainActivity.llBT.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 2.5f));
-		    MainActivity.llCFG.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f));
+			MonitorActivity.llBTSelect.startAnimation(animation);
+			MonitorActivity.llBTSelect.setVisibility(View.VISIBLE);
+			MonitorActivity.llCfgDedail.setVisibility(View.GONE);
+			MonitorActivity.llBT.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 2.5f));
+		    MonitorActivity.llCFG.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f));
 			
 		}
 	}
@@ -133,17 +132,17 @@ public class UIActions
 	public static void ShowMainScreen() {
 		// TODO Auto-generated method stub
 	    DividerShow();
-	    MainActivity.rlSpO2.setVisibility(View.VISIBLE);
-	    MainActivity.rlECG.setVisibility(View.VISIBLE);
-	    MainActivity.llNTC.setVisibility(View.VISIBLE);
-	    MainActivity.rlNIBP_TEMP.setVisibility(View.VISIBLE);
-	    MainActivity.llBCR.setVisibility(View.VISIBLE);
-	    MainActivity.llBT.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f));
-	    MainActivity.llCFG.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f));
-	    MainActivity.llBTSelect.setVisibility(View.GONE);
-	    MainActivity.llCfgDedail.setVisibility(View.GONE);
-	    MainActivity.mECGWaveDraw.setVisibility(true);
-		MainActivity.mSpO2WaveDraw.setVisibility(true);
+	    MonitorActivity.rlSpO2.setVisibility(View.VISIBLE);
+	    MonitorActivity.rlECG.setVisibility(View.VISIBLE);
+	    MonitorActivity.llNTC.setVisibility(View.VISIBLE);
+	    MonitorActivity.rlNIBP_TEMP.setVisibility(View.VISIBLE);
+	    MonitorActivity.llBCR.setVisibility(View.VISIBLE);
+	    MonitorActivity.llBT.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f));
+	    MonitorActivity.llCFG.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f));
+	    MonitorActivity.llBTSelect.setVisibility(View.GONE);
+	    MonitorActivity.llCfgDedail.setVisibility(View.GONE);
+	    MonitorActivity.mECGWaveDraw.setVisibility(true);
+		MonitorActivity.mSpO2WaveDraw.setVisibility(true);
 	    
 	    isMainScreenShow = true;
 	}
@@ -153,42 +152,28 @@ public class UIActions
 		if(isMainScreenShow) 
 		{
 			DividerHide();
-			MainActivity.rlECG.setVisibility(View.GONE);
-			MainActivity.mECGWaveDraw.setVisibility(false);
-			MainActivity.rlSpO2.setVisibility(View.GONE);
-			MainActivity.mSpO2WaveDraw.setVisibility(false);
-			MainActivity.rlNIBP_TEMP.setVisibility(View.GONE);
+			MonitorActivity.rlECG.setVisibility(View.GONE);
+			MonitorActivity.mECGWaveDraw.setVisibility(false);
+			MonitorActivity.rlSpO2.setVisibility(View.GONE);
+			MonitorActivity.mSpO2WaveDraw.setVisibility(false);
+			MonitorActivity.rlNIBP_TEMP.setVisibility(View.GONE);
 			
-			MainActivity.ibBluetooth.startAnimation(AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.bt_in_translate_top));
-			MainActivity.ibConfig.startAnimation(AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.cfg_in_translate_top));
-			MainActivity.ibRecord.startAnimation(AnimationUtils.loadAnimation(MainActivity.mContext, R.anim.rcd_in_translate_top));
+			MonitorActivity.ibBluetooth.startAnimation(AnimationUtils.loadAnimation(MonitorActivity.mContext, R.anim.bt_in_translate_top));
+			MonitorActivity.ibConfig.startAnimation(AnimationUtils.loadAnimation(MonitorActivity.mContext, R.anim.cfg_in_translate_top));
+			MonitorActivity.ibRecord.startAnimation(AnimationUtils.loadAnimation(MonitorActivity.mContext, R.anim.rcd_in_translate_top));
 			isMainScreenShow = false;
 		}
 	}
 
-
-//	private static void RLNIBP_TEMPShow() {
-//		// TODO Auto-generated method stub
-//		if(isMainScreenShow) 
-//		{
-//			DividerHide();
-//			MainActivity.rlECG.setVisibility(View.GONE);
-//			MainActivity.mECGWaveDraw.setVisibility(false);
-//			MainActivity.rlSpO2.setVisibility(View.GONE);
-//			MainActivity.mSpO2WaveDraw.setVisibility(false);
-//			MainActivity.llBCR.setVisibility(View.GONE);
-//			isMainScreenShow = false;
-//		}
-//	}
 	
 	private static void RLSpO2Show() {
 		// TODO Auto-generated method stub
 		if(!isMainScreenShow) return;
 		
 		DividerHide();
-		MainActivity.rlECG.setVisibility(View.GONE);
-		MainActivity.mECGWaveDraw.setVisibility(false);
-		MainActivity.llNTC.setVisibility(View.GONE);
+		MonitorActivity.rlECG.setVisibility(View.GONE);
+		MonitorActivity.mECGWaveDraw.setVisibility(false);
+		MonitorActivity.llNTC.setVisibility(View.GONE);
 	}
 	
 	private static void RLECGShow() {
@@ -196,24 +181,26 @@ public class UIActions
 		if(!isMainScreenShow) return;
 		
 		DividerHide();
-		MainActivity.rlSpO2.setVisibility(View.GONE);
-		MainActivity.mSpO2WaveDraw.setVisibility(false);
-		MainActivity.llNTC.setVisibility(View.GONE);
+		MonitorActivity.rlSpO2.setVisibility(View.GONE);
+		MonitorActivity.mSpO2WaveDraw.setVisibility(false);
+		MonitorActivity.llNTC.setVisibility(View.GONE);
 	}
 
 
 	private static void DividerShow() {
 		// TODO Auto-generated method stub
-		MainActivity.vwDivider0.setVisibility(View.VISIBLE);
-		MainActivity.vwDivider1.setVisibility(View.VISIBLE);
-		MainActivity.vwDivider2.setVisibility(View.VISIBLE);
+		MonitorActivity.vwDivider0.setVisibility(View.VISIBLE);
+		MonitorActivity.vwDivider1.setVisibility(View.VISIBLE);
+		MonitorActivity.vwDivider2.setVisibility(View.VISIBLE);
+		MonitorActivity.btnSave.setVisibility(View.VISIBLE);
 	}
 
 	private static void DividerHide() {
 		// TODO Auto-generated method stub
-		MainActivity.vwDivider0.setVisibility(View.GONE);
-		MainActivity.vwDivider1.setVisibility(View.GONE);
-		MainActivity.vwDivider2.setVisibility(View.GONE);
+		MonitorActivity.vwDivider0.setVisibility(View.GONE);
+		MonitorActivity.vwDivider1.setVisibility(View.GONE);
+		MonitorActivity.vwDivider2.setVisibility(View.GONE);
+		MonitorActivity.btnSave.setVisibility(View.GONE);
 	}
 
 	public class BTDevicesAdapter extends BaseAdapter {
@@ -304,24 +291,24 @@ public class UIActions
 
 	public static void ResearchBtnHide() {
 		// TODO Auto-generated method stub
-		MainActivity.btnResearch.setVisibility(View.GONE);
-		MainActivity.pbSearch.setVisibility(View.VISIBLE);
+		MonitorActivity.btnResearch.setVisibility(View.GONE);
+		MonitorActivity.pbSearch.setVisibility(View.VISIBLE);
 	}
 
 	public static void ResearchBtnShow() {
 		// TODO Auto-generated method stub
-		MainActivity.pbSearch.setVisibility(View.GONE);
-		MainActivity.btnResearch.setVisibility(View.VISIBLE);
+		MonitorActivity.pbSearch.setVisibility(View.GONE);
+		MonitorActivity.btnResearch.setVisibility(View.VISIBLE);
 	}
 
 	public static void RefreshSpO2(int arg1) {
 		// TODO Auto-generated method stub
 		if(arg1 != CONST.SPO2_INVALID_VALUE)
     	{
-    		MainActivity.tvSpO2.setText(arg1+"");
+    		MonitorActivity.tvSpO2.setText(arg1+"");
     	}
     	else {
-    		MainActivity.tvSpO2.setText(R.string.tvSpO2Invalid);
+    		MonitorActivity.tvSpO2.setText(R.string.tvSpO2Invalid);
 		}
 	}
 
@@ -329,10 +316,10 @@ public class UIActions
 		// TODO Auto-generated method stub
 		if(arg2 != CONST.PR_INVALID_VALUE)
     	{
-			MainActivity.tvPR.setText(arg2+"");
+			MonitorActivity.tvPR.setText(arg2+"");
     	}
     	else {
-    		MainActivity.tvPR.setText(R.string.tvPRInvalid);
+    		MonitorActivity.tvPR.setText(R.string.tvPRInvalid);
 		}
 	}
 
@@ -340,10 +327,10 @@ public class UIActions
 		// TODO Auto-generated method stub
 		if(arg1 != CONST.RESP_INVALID_VALUE)
     	{
-			MainActivity.tvResp.setText(arg1+"");
+			MonitorActivity.tvResp.setText(arg1+"");
     	}
     	else {
-    		MainActivity.tvResp.setText(R.string.tvRespInvalid);
+    		MonitorActivity.tvResp.setText(R.string.tvRespInvalid);
 		}
 		
 	}
@@ -352,10 +339,10 @@ public class UIActions
 		// TODO Auto-generated method stub
 		if(arg2 != CONST.HR_INVALID_VALUE)
     	{
-			MainActivity.tvHR.setText(arg2+"");
+			MonitorActivity.tvHR.setText(arg2+"");
     	}
     	else {
-    		MainActivity.tvHR.setText(R.string.tvHRInvalid);
+    		MonitorActivity.tvHR.setText(R.string.tvHRInvalid);
 		}
 		
 	}
@@ -365,13 +352,13 @@ public class UIActions
 		
 		if(arg1==0 && arg2 ==0)
 		{
-			MainActivity.tvTemp.setText(MainActivity.mContext.getResources().getString(R.string.tvTempInvalid));
+			MonitorActivity.tvTemp.setText(MonitorActivity.mContext.getResources().getString(R.string.tvTempInvalid));
 			return;
 		}
 		
 		float temp = arg1 + ((float)arg2)/10;
 		
-		MainActivity.tvTemp.setText(String.format("%.1f",temp));
+		MonitorActivity.tvTemp.setText(String.format("%.1f",temp));
 	}
 
 	public static void RefreshNIBP(int arg1, int arg2) {
@@ -379,12 +366,12 @@ public class UIActions
 		
 		if(arg1 == 0 && arg2 == 0)
 		{
-			MainActivity.tvHighPressure.setText(MainActivity.mContext.getResources().getString(R.string.tvNIBPInvalid));
-			MainActivity.tVLowPressure.setText(MainActivity.mContext.getResources().getString(R.string.tvNIBPInvalid));
+			MonitorActivity.tvHighPressure.setText(MonitorActivity.mContext.getResources().getString(R.string.tvNIBPInvalid));
+			MonitorActivity.tVLowPressure.setText(MonitorActivity.mContext.getResources().getString(R.string.tvNIBPInvalid));
 			
 			return;
 		}
-		MainActivity.tvHighPressure.setText(arg1+"");
-		MainActivity.tVLowPressure.setText(arg2+"");
+		MonitorActivity.tvHighPressure.setText(arg1+"");
+		MonitorActivity.tVLowPressure.setText(arg2+"");
 	}
 }

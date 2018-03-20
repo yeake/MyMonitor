@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import pers.zuqiuyu.mymonitor.MainActivity;
+import pers.zuqiuyu.mymonitor.MonitorActivity;
 import pers.zuqiuyu.mymonitor.utils.CONST;
 
 
@@ -137,7 +137,7 @@ public class BluetoothUtils
 		// TODO Auto-generated method stub
 		if(mBluetoothChatService == null)
 		{
-			Toast.makeText(MainActivity.mContext, "please connect the bluetooth...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(MonitorActivity.mContext, "please connect the bluetooth...", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		mBluetoothChatService.write(sTART_NIBP);

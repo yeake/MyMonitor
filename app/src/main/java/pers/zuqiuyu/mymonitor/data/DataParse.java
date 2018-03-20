@@ -3,8 +3,9 @@ package pers.zuqiuyu.mymonitor.data;
 import android.os.Handler;
 import android.util.Log;
 
-import pers.zuqiuyu.mymonitor.MainActivity;
+import pers.zuqiuyu.mymonitor.MonitorActivity;
 import pers.zuqiuyu.mymonitor.utils.CONST;
+import pers.zuqiuyu.mymonitor.utils.IOtxt;
 
 
 public class DataParse implements Runnable
@@ -154,36 +155,50 @@ public class DataParse implements Runnable
 		int pkgType = pkgData[3]&0xff;
 		
 		switch (pkgType) {
+			//ECG graph
 			case PKG_ECG_WAVE:
 				//Log.i(TAG, "pkg_ecg_wave");
 				skipCounter++;
 				if(skipCounter == 1)
 				{
-					MainActivity.mECGWaveDraw.add(pkgData[4]&0xff);
+					MonitorActivity.mECGWaveDraw.add(pkgData[4]&0xff);
+					CONST.listECG.add((pkgData[4]&0xff)+"");
 					skipCounter = 0;
 				}
-				
 				break;
+			//SPO2 graph
 			case PKG_SPO2_WAVE:
-				
-					MainActivity.mSpO2WaveDraw.add(pkgData[4]&0xff);
-				
-//					Log.i("TIME","     "+(System.currentTimeMillis() - time));
-//            		time = System.currentTimeMillis();
+				MonitorActivity.mSpO2WaveDraw.add(pkgData[4]&0xff);
 				break;
+			//RESP HR
 			case PKG_ECG_PARAM:
 				mHandler.obtainMessage(CONST.MESSAGE_ECG_PARAMS, 0xff&pkgData[6], 0xff&pkgData[5]).sendToTarget();
-				//Log.i(TAG, "pkg_ecg_param");
+				CONST.listRESP.add((0xff&pkgData[6])+"");
+				CONST.listHR.add((0xff&pkgData[5])+"");
+				//Log.e("resp", (0xff&pkgData[6])+"");
 				break;
+			//SBP DBP
 			case PKG_NIBP:
 				//Log.i(TAG, "pkg_nibp");
 				mHandler.obtainMessage(CONST.MESSAGE_NIBP_PARAMS, 0xff&pkgData[6], 0xff&pkgData[8]).sendToTarget();
+				CONST.listDBP.add((0xff&pkgData[6])+"");//systolic blood pressure
+				//Log.e("sbp", (0xff&pkgData[6])+"");
+				CONST.listSBP.add((0xff&pkgData[8])+"");//diastolic blood pressure
+				//Log.e("dbp", (0xff&pkgData[8])+"");
 				break;
+			//SPO2 PR
 		    case PKG_SPO2:
 			    mHandler.obtainMessage(CONST.MESSAGE_SPO2_PARAM, 0xff&pkgData[5], 0xff&pkgData[6]).sendToTarget();
+				CONST.listSPO2.add((0xff&pkgData[5])+"");
+				CONST.listPR.add((0xff&pkgData[6])+"");
+				//Log.e("SPO2", (0xff&pkgData[5])+"");
+				//Log.e("PR", (0xff&pkgData[6])+"");
 			    break;
+			//TEMP
 		    case PKG_TEMP:
 			    mHandler.obtainMessage(CONST.MESSAGE_TEMP_PARAMS, 0xff&pkgData[5], 0xff&pkgData[6]).sendToTarget();
+				double temp = (0xff&pkgData[5]) + (double)(0xff&pkgData[6])/10;
+			    CONST.listTEMP.add(String.valueOf(temp));
 			    break;
 		    case PKG_SW_VER:
 			    //Log.i(TAG, "pkg_SW");

@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import pers.zuqiuyu.mymonitor.MainActivity;
+import pers.zuqiuyu.mymonitor.MonitorActivity;
 import pers.zuqiuyu.mymonitor.R;
 
 
@@ -76,7 +76,7 @@ public class DrawRunnable implements Runnable{
 			    		Canvas mCanvas = mSurfaceHolder.lockCanvas(new Rect(oldPoint.x,0,oldPoint.x+STROKE_WIDTH*5,mSurfaceView.getHeight()-WAVE_PADDING));
 					    if(mCanvas != null)
 					    {
-					    	mCanvas.drawColor(MainActivity.mContext.getResources().getColor(R.color.nephritis));
+					    	mCanvas.drawColor(MonitorActivity.mContext.getResources().getColor(R.color.nephritis));
 						    mPath.reset();
 						    for(counter = 0;counter <mWaveParas.bufferCounter; counter++)
 						    {
