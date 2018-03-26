@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.TreeSet;
 
 
 /**
@@ -131,7 +132,11 @@ public class IOtxt {
                 hashSet.add(tempList[i].getName());
             }
         }
-        String filesList[] = hashSet.toArray(new String[hashSet.size()]);
+//        String filesList[] = hashSet.toArray(new String[hashSet.size()]);
+//        return filesList;
+        TreeSet ts = new TreeSet(hashSet);
+        ts.comparator();
+        String filesList[] = (String[])ts.toArray(new String[]{});
         return filesList;
     }
     //求中位数

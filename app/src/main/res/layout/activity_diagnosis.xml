@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pers.zuqiuyu.mymonitor.DiagnosisActivity">
+    <Button
+        android:id="@+id/btnUpload"
+        android:text="上传监护数据"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btnGetDiagnosis"
+        android:text="接收医嘱"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvDiagnosis"
+        android:textColor="#E3170D"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:background="@drawable/textview_border"
+        android:hint="暂未收到医嘱，请先上传，然后点击接收医嘱..."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></TextView>
+
+</LinearLayout>

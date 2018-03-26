@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pers.zuqiuyu.mymonitor">
-
+    <!-- 使用网络功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!-- 蓝牙权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -49,8 +53,13 @@
             android:name=".RecordListActivity"
             android:label="RecordActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".RecordActivity"
+        <activity
+            android:name=".RecordActivity"
             android:label="RecordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DiagnosisActivity"
+            android:label="DiagnosisActivity"
             android:screenOrientation="landscape" />
     </application>
 

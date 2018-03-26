@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import pers.zuqiuyu.mymonitor.utils.CONST;
 import pers.zuqiuyu.mymonitor.utils.IOtxt;
 
-public class RecordActivity extends Activity {
+public class RecordActivity extends Activity implements View.OnClickListener {
 
     private TextView tvRESP,tvHR,tvSPO2,tvPR,tvSBP,tvDBP,tvTEMP;
     private RelativeLayout static_chart_line_layout;
@@ -58,6 +59,18 @@ public class RecordActivity extends Activity {
             }
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnDiagnosis:
+                Intent intent = new Intent(this,DiagnosisActivity.class);
+                intent.putExtra("time",time);
+                startActivity(intent);
+                break;
+        }
+    }
+
     class TaskThread extends Thread {
         public void run() {
             Log.e("tag", "开始执行费时任务");
@@ -85,14 +98,13 @@ public class RecordActivity extends Activity {
         tvSBP = findViewById(R.id.tvSBP);
         tvDBP = findViewById(R.id.tvDBP);
         tvTEMP = findViewById(R.id.tvTEMP);
+        findViewById(R.id.btnDiagnosis).setOnClickListener(this);
         static_chart_line_layout = (RelativeLayout) findViewById(R.id.static_chart_line_layout);
 
     }
 
     private void initChart() {
 
-//        record = IOtxt.readRecord(CONST.FilePath+time);
-//        ecg = IOtxt.readECG(CONST.FilePath+time+"ECG");
 
         tvRESP.setText(record[0]);
         tvHR.setText(record[1]);

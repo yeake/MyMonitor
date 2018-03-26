@@ -23,6 +23,9 @@ public class CONST
 	public static final int MESSAGE_ECG_PARAMS             = 11;
 	public static final int MESSAGE_TEMP_PARAMS            = 12;
 	public static final int MESSAGE_NIBP_PARAMS            = 13;
+
+	public static final int MESSAGE_UPLOAD_SUCCESS = 14;
+	public static final int MESSAGE_GETDIAGNOSIS_SUCCESS = 15;
 	
 	public static final int SPO2_INVALID_VALUE             = 127;
 	public static final int PR_INVALID_VALUE               = 255;
@@ -39,7 +42,7 @@ public class CONST
 
 	public static final String FilePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
 										"/Android/data/com.zuqiuyu.mymonitor/data/";//数据存储路径
-
+	public static final String RequestURL = "http://192.168.0.111:8080/DoctorWorkStation/";
 	public static String TIME = "00000000000000";
 	//public static String filePathRecord = FilePath+time;//Record file
 	//public static String filePathECG = filePathRecord+"ECG";//ECG file
