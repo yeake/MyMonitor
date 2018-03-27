@@ -5,6 +5,15 @@ package pers.zuqiuyu.mymonitor.utils;
  */
 
 import android.util.Log;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
+
+import org.apache.http.Header;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,20 +24,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
+import pers.zuqiuyu.mymonitor.DiagnosisActivity;
+
 public class WebUtil {
     private static final String TAG = "uploadFile";
     private static final int TIME_OUT = 10*1000;   //超时时间
     private static final String CHARSET = "utf-8"; //设置编码
+    public static String diagnosis = "";
     /**
      * android上传文件到服务器
      * @param filePath  需要上传的文件
-     * @param RequestURL  请求的rul
      * @return  返回响应的内容
      */
-    public static String uploadFile(String filePath, String RequestURL)
+    public static String uploadFile(String filePath)
     {
+        String RequestURL = CONST.RequestURL+"servlet/UploadHandleServlet";
         File file = new File(filePath);
-        RequestURL = RequestURL+"servlet/UploadHandleServlet";
         String result = null;
         String  BOUNDARY =  UUID.randomUUID().toString();  //边界标识   随机生成
         String PREFIX = "--" , LINE_END = "\r\n";
@@ -103,8 +114,24 @@ public class WebUtil {
         }
         return result;
     }
-    public static String getDiagnosis(String time,String RequestURL){
-        RequestURL = RequestURL+"servlet/GetDiagnosisServlet";
-        return null;
-    }
+//    public static String getDiagnosis(String time){
+//        String RequestURL = CONST.RequestURL + "servlet/GetDiagnosisServlet";
+//        RequestParams requestParams = new RequestParams();
+//        requestParams.add("time", time);
+//        new AsyncHttpClient().post(RequestURL, requestParams, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                if (statusCode == 200) {
+//                    diagnosis = new String(responseBody);
+//                }
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                diagnosis = "没有获取到Android服务器端的响应！";
+//            }
+//
+//
+//        });
+//        return diagnosis;
+//    }
 }
