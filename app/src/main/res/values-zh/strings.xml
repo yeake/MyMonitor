@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">贝瑞监护仪</string>
+    <string name="app_name">我的监护仪</string>
     <string name="exit_tip">再按一次退出程序</string>
     <string name="unfinishedfunc">该功能正在建设中，敬请期待。</string>
 
@@ -32,7 +32,7 @@
     <!-- NIBP -->
     <string name="tvNIBPInvalid">---</string>
     
-    <string name="tvCopyright">©2006-2014 Berry-med.com, All rights reserved.</string>
+    <string name="tvCopyright">©2018 UUST, All rights reserved.</string>
     
     <!-- configure -->
     <string name="Settings">设置</string>
@@ -40,12 +40,12 @@
     <string name="Contact_Us">联系我们</string>
     
     <!-- Contact -->
-    <string name="contactTel"    >+86-021-58531958</string>
-    <string name="ContactEmail"  >sales@berry-med.com</string>
-    <string name="contactWebsite">www.berry-med.com</string>
+    <string name="contactTel"    >+86-021-55277040</string>
+    <string name="ContactEmail"  >zuqiuyu@foxmail.com</string>
+    <string name="contactWebsite">www.usst.edu.cn</string>
     
     <!-- About -->
-    <string name="AboutCompany">上海贝瑞电子科技有限公司</string>
+    <string name="AboutCompany">上海理工大学</string>
     <string name="AboutApp">软件版本：V</string>
     
     <!-- Tel alert dialog-->

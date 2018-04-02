@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">iMonitor</string>
+    <string name="app_name">MyMonitor</string>
     <string name="exit_tip">press again move to background</string>
     <string name="strnull"></string>
     <string name="unfinishedfunc">This function is being built.</string>
@@ -31,17 +31,16 @@
     <!-- NIBP -->
     <string name="tvNIBPInvalid">- - -</string>
 
-    <string name="tvCopyright">©2006-2014 Berry-med.com, All rights reserved.</string>
+    <string name="tvCopyright">©2018 UUST, All rights reserved.</string>
 
     <!-- configure -->
     <string name="Settings">Settings</string>
     <string name="About">About</string>
     <string name="Contact_Us">Contact Us</string>
-
     <!-- Contact -->
-    <string name="contactTel">+86-021-58531958</string>
-    <string name="ContactEmail">sales@berry-med.com</string>
-    <string name="contactWebsite">www.berry-med.com</string>
+    <string name="contactTel"    >+86-021-55277040</string>
+    <string name="ContactEmail"  >zuqiuyu@foxmail.com</string>
+    <string name="contactWebsite">www.usst.edu.cn</string>
 
     <!-- About -->
     <string name="AboutCompany">Shanghai Berry Electronic Tech CO., Ltd</string>
