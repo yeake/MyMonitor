@@ -26,6 +26,7 @@ public class CONST
 
 	public static final int MESSAGE_UPLOAD_SUCCESS = 14;
 	public static final int MESSAGE_GETDIAGNOSIS_SUCCESS = 15;
+	public static final int MESSAGE_UPLOAD_FAILED = 16;
 	
 	public static final int SPO2_INVALID_VALUE             = 127;
 	public static final int PR_INVALID_VALUE               = 255;

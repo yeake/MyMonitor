@@ -36,11 +36,12 @@ public class WebUtil {
      * @param filePath  需要上传的文件
      * @return  返回响应的内容
      */
-    public static String uploadFile(String filePath)
+    public static boolean uploadFile(String filePath)
     {
         String RequestURL = CONST.RequestURL+"servlet/UploadHandleServlet";
         File file = new File(filePath);
         String result = null;
+        boolean FLAG = false;
         String  BOUNDARY =  UUID.randomUUID().toString();  //边界标识   随机生成
         String PREFIX = "--" , LINE_END = "\r\n";
         String CONTENT_TYPE = "multipart/form-data";   //内容类型
@@ -73,7 +74,6 @@ public class WebUtil {
                  * name里面的值为服务器端需要key   只有这个key 才可以得到对应的文件
                  * filename是文件的名字，包含后缀名的   比如:abc.png
                  */
-
                 sb.append("Content-Disposition: form-data; name=\"img\"; filename=\""+file.getName()+"\""+LINE_END);
                 sb.append("Content-Type: application/octet-stream; charset="+CHARSET+LINE_END);
                 sb.append(LINE_END);
@@ -96,6 +96,8 @@ public class WebUtil {
                  */
                 int res = conn.getResponseCode();
                 Log.e(TAG, "response code:"+res);
+                FLAG = true;
+                Log.e(TAG, "response code:"+res);
                 Log.e(TAG, "request success");
                 InputStream input =  conn.getInputStream();
                 StringBuffer sb1= new StringBuffer();
@@ -106,32 +108,13 @@ public class WebUtil {
                 }
                 result = sb1.toString();
                 Log.e(TAG, "result : "+ result);
-            }
+                }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;
+        return FLAG;
     }
-//    public static String getDiagnosis(String time){
-//        String RequestURL = CONST.RequestURL + "servlet/GetDiagnosisServlet";
-//        RequestParams requestParams = new RequestParams();
-//        requestParams.add("time", time);
-//        new AsyncHttpClient().post(RequestURL, requestParams, new AsyncHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                if (statusCode == 200) {
-//                    diagnosis = new String(responseBody);
-//                }
-//            }
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                diagnosis = "没有获取到Android服务器端的响应！";
-//            }
-//
-//
-//        });
-//        return diagnosis;
-//    }
+
 }

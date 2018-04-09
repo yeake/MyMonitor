@@ -41,14 +41,15 @@ public class DiagnosisActivity extends Activity implements View.OnClickListener 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CONST.MESSAGE_UPLOAD_SUCCESS:
-                    tvDiagnosis.setHint("上传成功,等候医生诊断");
-                    tvDiagnosis.setHintTextColor(Color.rgb(255, 0, 0));
-                    Toast.makeText(DiagnosisActivity.this, "上传成功,等候医生诊断", Toast.LENGTH_SHORT).show();
+                    tvDiagnosis.setText(msg.obj.toString());
+                    tvDiagnosis.setTextColor(Color.rgb(0, 0, 0));
+                    Toast.makeText(DiagnosisActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
                     Log.e("zuqiuyu", msg.obj.toString());
                     break;
-                case CONST.MESSAGE_GETDIAGNOSIS_SUCCESS:
-                    tvDiagnosis.setHint(msg.obj.toString());
-                    tvDiagnosis.setHintTextColor(Color.rgb(255, 0, 0));
+                case CONST.MESSAGE_UPLOAD_FAILED:
+                    tvDiagnosis.setText(msg.obj.toString());
+                    tvDiagnosis.setTextColor(Color.rgb(255, 0, 0));
+                    Toast.makeText(DiagnosisActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
                     Log.e("zuqiuyu", msg.obj.toString());
                     break;
             }
@@ -58,11 +59,16 @@ public class DiagnosisActivity extends Activity implements View.OnClickListener 
         @Override
         public void run() {
             // 在这里进行 http request.网络请求相关操作
-            WebUtil.uploadFile(filePATH);
-            WebUtil.uploadFile(filePATH + "ECG");
             Message msg = handler.obtainMessage();
-            msg.what = CONST.MESSAGE_UPLOAD_SUCCESS;
-            msg.obj = "上传成功";
+            if ( WebUtil.uploadFile(filePATH) && WebUtil.uploadFile(filePATH + "ECG")){
+                msg.what = CONST.MESSAGE_UPLOAD_SUCCESS;
+                msg.obj = "上传成功,请等候医生诊断";
+            }
+            else{
+                msg.what = CONST.MESSAGE_UPLOAD_FAILED;
+                msg.obj = "服务器连接失败！请稍候再试！";
+            }
+
             handler.sendMessage(msg);
         }
     };
@@ -88,6 +94,7 @@ public class DiagnosisActivity extends Activity implements View.OnClickListener 
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
                     tvDiagnosis.setText(new String(responseBody));
+                    tvDiagnosis.setTextColor(Color.rgb(0, 0, 0));
                     Toast.makeText(DiagnosisActivity.this, new String(responseBody), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -95,6 +102,7 @@ public class DiagnosisActivity extends Activity implements View.OnClickListener 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 tvDiagnosis.setText("服务器连接失败！请稍候再试！");
+                tvDiagnosis.setTextColor(Color.rgb(255, 0, 0));
                 Toast.makeText(DiagnosisActivity.this, "服务器连接失败！请稍候再试！", Toast.LENGTH_SHORT).show();
             }
 
